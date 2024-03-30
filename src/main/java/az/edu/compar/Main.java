@@ -1,6 +1,7 @@
 package az.edu.compar;
 
 import az.edu.compar.models.Car;
+import az.edu.compar.services.CarService;
 
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class Main {
         // Report =>
 
         Scanner scanner = new Scanner(System.in);
+        CarService carService  = new CarService();
         Car car = new Car();
         car.setId(1);
         car.setModel("Patrol");
@@ -22,12 +24,7 @@ public class Main {
         car.setMaxFuel(100);
         car.setFuelPerKm(15);
 
-        System.out.println("1. Start");
-        System.out.println("2. Gas station");
-        System.out.println("3. Report");
-        System.out.println("4. Exit");
-
-        int userInput = scanner.nextInt();
+        int userInput = 0;
 
         while (userInput != 4){
 
@@ -40,16 +37,21 @@ public class Main {
 
             switch (userInput){
                 case 1:
-                    // Start
-                    System.out.println("Herekete basladiq.");
+                    System.out.println("Yolu daxil edin");
+                    double userKm = scanner.nextDouble();
+                    carService.start(car, userKm);
                     break;
                 case 2:
                     // Gas station
-                    System.out.println("Benzin doldurulur.");
+                    System.out.println("Benzin doldurun.");
+                    double userFuel = scanner.nextDouble();
+                    carService.gasStation(car, userFuel);
                     break;
                 case 3:
                     // Report
                     System.out.println("Statistika.");
+                    System.out.println("Millage: " + car.getMillage());
+                    System.out.println("Fuel: " + car.getFuel());
                     break;
                 default:
                     //
